@@ -13,5 +13,10 @@ void changeMatrix(float **matrix, int nRows, int nCols);
 float **mkRandMatrix(int nRows, int nCols, int min, int MAX);
 void freeMatrix(float **matrix, int nRows);
 void printMatrix(float **matrix, int nRows, int nCols);
+void invertRows(float **matrix, int row_1, int row_2);
+void invertCols(float **matrix, int nRows, int col_1, int col_2);
+float **sumMatrices(float **matrix_1, float **matrix_2, int nRows, int nCols);
+float **subMatrices(float **matrix_1, float **matrix_2, int nRows, int nCols);
+void eGauss(float **matrix, int nRows);
 
 #endif
