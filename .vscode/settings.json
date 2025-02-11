@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "*.c": "c",
+        "linear_algebra.h": "c"
+    }
+}

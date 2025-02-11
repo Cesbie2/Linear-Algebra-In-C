@@ -2,7 +2,7 @@
 
 //Create a matrix of float type initialized at 0
 float **mkMatrix (int nRows, int nCols)
-{   float **ret = (float**)calloc( nRows, sizeof(float*));
+{   float **ret = (float**)malloc( nRows * sizeof(float*));
     if(ret == NULL)
     {   
         printf("%s", "Error: Memory allocation fault for rows");
@@ -27,7 +27,17 @@ float **mkMatrix (int nRows, int nCols)
     return ret;
 }
 
-//Create a random 
+//initialize a matrix or change it's values
+void changeMatrix(float **matrix, int nRows, int nCols)
+{   for(int i = 0; i < nRows; i++)
+    {   for(int j = 0; j < nCols; j++)
+        {   printf("Value of the row[%d] column[%d]: \n", i+1, j+1);
+            scanf("%f", &matrix[i][j]);  
+        }
+    }
+}
+
+//Create a random matrix, choose a minimum and a maximum
 float **mkRandMatrix(int nRows, int nCols, int min, int MAX)
 {   srand(time(NULL));
     float **ret = mkMatrix(nRows, nCols);
@@ -35,15 +45,29 @@ float **mkRandMatrix(int nRows, int nCols, int min, int MAX)
     {
         for(int j = 0; j < nCols; j++)
         {
-            ret[i][j] = min - rand() % (MAX - min + 1);
+            ret[i][j] = min + rand() % (MAX - min + 1);
         }
     }
     return ret;
 }
 
+//free the memory flom the heap
 void freeMatrix(float **matrix, int nRows)
 {   for(int i = 0; i < nRows; i++)
     {   free(matrix[i]);
     }
     free(matrix);
 }
+
+//print the matrix
+void printMatrix(float **matrix, int nRows, int nCols)
+{   for(int i = 0; i < nRows; i++)
+    {   for(int j = 0; j < nCols; j++)
+        {   
+            printf("%5.2f ", matrix[i][j]);
+        }
+        puts("");
+    }
+    puts("");
+}
+
