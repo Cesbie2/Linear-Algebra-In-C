@@ -79,9 +79,7 @@ void printMatrix(float **matrix, int nRows, int nCols)
 
 //invert the rows specified into the function 
 void invertRows(float **matrix, int row_1, int row_2)
-{   row_1--;    
-    row_2--;    
-        
+{   
     float *ptrTEMP = NULL;
     
     ptrTEMP = matrix[row_1];
@@ -89,10 +87,9 @@ void invertRows(float **matrix, int row_1, int row_2)
     matrix[row_2] = ptrTEMP;
 }
 
+//invert the columns specified into the function 
 void invertCols(float **matrix, int nRows, int col_1, int col_2)
-{   col_1--;
-    col_2--;
-    
+{    
     for(int i = 0; i < nRows; i++)
     {   float temp = 0; 
         temp = matrix[i][col_1];
@@ -101,6 +98,7 @@ void invertCols(float **matrix, int nRows, int col_1, int col_2)
     }
 }
 
+//sum of 2 matricles
 float **sumMatrices(float **matrix_1, float **matrix_2, int nRows, int nCols)
 {   float **ret = mkMatrix(nRows, nCols);
     
@@ -113,6 +111,7 @@ float **sumMatrices(float **matrix_1, float **matrix_2, int nRows, int nCols)
     return ret;
 }
 
+//subtraction of 2 matricles
 float **subMatrices(float **matrix_1, float **matrix_2, int nRows, int nCols)
 {   float **ret = mkMatrix(nRows, nCols);
     
@@ -125,4 +124,77 @@ float **subMatrices(float **matrix_1, float **matrix_2, int nRows, int nCols)
     return ret;
 }
 
+//extract and place the row inside an array (remember to free the array)
+float *xtrctRow(float **matrix, int row_1, int nCols)
+{   float *ret = (float*)malloc(nCols * sizeof(float));
+    //check the allocated memory
+    if(ret == NULL)
+    {   printf("%s", "Error: Memory allocation fault for extract rows");
+        return NULL;   
+    }
+    
+    for(int i = 0; i < nCols; i++)
+    {   ret[i] = matrix[row_1][i];
+    }
+    return ret;
+}
 
+//extract and place the column inside an array (remember to free the array)
+float *xtractColumn(float **matrix, int column, int nRows)
+{    float *ret = (float*)malloc(nRows * sizeof(float));
+    //check the allocated memory
+    if(ret == NULL)
+    {   printf("%s", "Error: Memory allocation fault for extract column");
+        return NULL;   
+    }
+    
+    for(int i = 0; i < nRows; i++)
+    {   ret[i] = matrix[i][column];
+    }
+    return ret;
+}
+
+//matrix product row * column REMINDER: can be done only if nCols_1 == nRows_2
+float **productMatrix(float **matrix_1, float **matrix_2, int nRows_1, int nCols_1, int nRows_2, int nCols_2)
+{   
+    if(nCols_1 != nRows_2)
+    {   puts("You can't do the matrix product if nCols_1 and nRows_2 are different");
+        return NULL;
+    }
+    
+    float **ret = mkMatrix(nRows_1, nCols_2);
+    
+    for(int i = 0; i < nRows_1; i++)
+    {   for(int j = 0; j < nCols_2; j++)
+        {   
+            for(int k = 0; k < nCols_1; k++)
+            {   for(int h = 0; h < nRows_2; h++)
+                {
+                    ret[i][j] += matrix_1[i][k] * matrix_2[h][j];
+                }
+            }
+        }
+    }
+    return ret;
+}
+
+
+//incomplete
+/*void eGauss(float **matrix, int nRows, int nCols)
+{   while(matrix[0][0] == 0)
+    {   for(int i = 1; i < nRows; i++)
+        {   invertRows(matrix, 0, i);
+        }
+    }
+
+    if(nRows == nCols)
+    {   puts("La matrice è quadrata");
+    }
+
+    for(int i = 0; i < nRows; i++)
+    {   for(int j = 0; j < nCols; j++)
+        {
+        }
+    }
+}
+*/
