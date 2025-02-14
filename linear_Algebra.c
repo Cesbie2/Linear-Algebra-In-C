@@ -154,6 +154,19 @@ float *xtractColumn(float **matrix, int column, int nRows)
     return ret;
 }
 
+float **productScalar(float **matrix, int nRows, int nCols, float scalar)
+{   float **ret = mkMatrix(nRows, nCols);
+    
+    for(int i = 0; i < nRows; i++)
+    {   for(int j = 0; j < nCols; j++)
+        {   
+            ret[i][j] = matrix[i][j] * scalar;
+        }
+    }
+    
+    return ret;
+}
+
 //matrix product row * column REMINDER: can be done only if nCols_1 == nRows_2
 float **productMatrix(float **matrix_1, float **matrix_2, int nRows_1, int nCols_1, int nRows_2, int nCols_2)
 {   
@@ -168,10 +181,8 @@ float **productMatrix(float **matrix_1, float **matrix_2, int nRows_1, int nCols
     {   for(int j = 0; j < nCols_2; j++)
         {   
             for(int k = 0; k < nCols_1; k++)
-            {   for(int h = 0; h < nRows_2; h++)
-                {
-                    ret[i][j] += matrix_1[i][k] * matrix_2[h][j];
-                }
+            {   
+                ret[i][j] += matrix_1[i][k] * matrix_2[k][j];
             }
         }
     }
